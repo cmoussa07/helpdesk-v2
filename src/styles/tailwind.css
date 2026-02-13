@@ -1,0 +1,9 @@
+/* tailwind.css */
+
+/* ----- Tailwind directives ----- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ----- Animations ----- */
+@import 'tw-animate-css';

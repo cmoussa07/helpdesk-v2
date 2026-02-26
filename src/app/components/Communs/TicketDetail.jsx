@@ -491,73 +491,314 @@ export default function TicketDetail({ tickets }) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 px-6 py-8">
-      <Card className="border-2 border-blue-100 mb-5">
-        <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 pb-6">
-          <div className="space-y-3">
-            <div className="flex items-start justify-between gap-4">
-              <CardTitle className="flex-1">{ticket.titreTic}</CardTitle>
-              <span className="text-gray-500">#TKT-0{ticket.numTic}</span>
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <span
-                className={`px-3 py-1.5 rounded-full text-sm font-medium 
-                ${ticket_config.status[ticket.statutId]?.bgColor || "bg-gray-100 text-gray-800"}`}
-              >
-                {ticket.statutLibelle}
-              </span>
-              <span
-                className={`px-3 py-1.5 rounded-full text-sm font-medium 
+    // <div className="max-w-4xl mx-auto space-y-6 px-6 py-8">
+    //   <Card className="border-2 border-blue-100 mb-5">
+    //     <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 pb-6">
+    //       <div className="space-y-3">
+    //         <div className="flex items-start justify-between gap-4">
+    //           <CardTitle className="flex-1">{ticket.titreTic}</CardTitle>
+    //           <span className="text-gray-500">#TKT-0{ticket.numTic}</span>
+    //         </div>
+    //         <div className="flex flex-wrap items-center gap-3">
+    //           <span
+    //             className={`px-3 py-1.5 rounded-full text-sm font-medium
+    //             ${ticket_config.status[ticket.statutId]?.bgColor || "bg-gray-100 text-gray-800"}`}
+    //           >
+    //             {ticket.statutLibelle}
+    //           </span>
+    //           <span
+    //             className={`px-3 py-1.5 rounded-full text-sm font-medium
+    //             ${ticket_config.priorite[ticket.prioriteId]?.bgColor || "bg-gray-100 text-gray-800"}`}
+    //           >
+    //             {ticket.prioriteLibelle}
+    //           </span>
+    //           <span>{ticket.categorieLibelle}</span>
+    //         </div>
+    //       </div>
+    //     </CardHeader>
+
+    //     <CardContent className="p-6">
+    //       <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+    //         <AlertCircle className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+    //         <div>
+    //           <h4 className="text-blue-900 mb-1">Description du ticket</h4>
+    //           <p className="text-blue-700">{ticket.descTic}</p>
+    //         </div>
+    //       </div>
+
+    //       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    //         <div>
+    //           <div className="flex items-center gap-2 text-gray-600">
+    //             <User className="h-4 w-4" />
+    //             <span className="block">Client</span>
+    //           </div>
+    //           <span className="text-gray-900">
+    //             {ticket.clientNom} {ticket.clientPrenom}
+    //           </span>
+    //         </div>
+
+    //         <div>
+    //           <div className="flex items-center gap-2 text-gray-600">
+    //             <Calendar className="h-4 w-4" />
+    //             <span className="block">Créé le</span>
+    //           </div>
+    //           <span className="text-gray-900">
+    //             {formatTicketDate(ticket.dateCreTic)}
+    //           </span>
+    //         </div>
+    //         <div className="flex items-center gap-2 text-gray-600">
+    //           <div>
+    //             <div className="flex items-center gap-2 text-gray-600">
+    //               <Tag className="h-4 w-4" />
+    //               <span className="block">Catégorie</span>
+    //             </div>
+
+    //             <span className="text-gray-900">{ticket.categorieLibelle}</span>
+    //           </div>
+    //         </div>
+    //       </div>
+
+    //       {ticket.assignedTo && (
+    //         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+    //           <p className="text-green-800">
+    //             ✓ Ce ticket est assigné à <strong>{ticket.assignedTo}</strong>
+    //           </p>
+    //         </div>
+    //       )}
+    //     </CardContent>
+    //   </Card>
+
+    //   <Card>
+    //     <CardHeader>
+    //       <CardTitle className="flex items-center gap-2">
+    //         <MessageSquare className="h-5 w-5 text-blue-600" />
+    //         Conversation
+    //       </CardTitle>
+    //     </CardHeader>
+    //     <CardContent className="p-6">
+    //       <div className="space-y-4 mb-6">
+    //         {demoMessages.map((msg) => (
+    //           <div
+    //             key={msg.id}
+    //             className={`flex gap-3 ${msg.isCustomer ? "flex-row-reverse" : ""}`}
+    //           >
+    //             <div
+    //               className={`flex-shrink-0 h-10 w-10 rounded-full flex items-center justify-center ${
+    //                 msg.isCustomer
+    //                   ? "bg-gradient-to-br from-blue-600 to-purple-600 text-white"
+    //                   : "bg-gray-200 text-gray-600"
+    //               }`}
+    //             >
+    //               {msg.author.charAt(0).toUpperCase()}
+    //             </div>
+    //             <div className={`flex-1 ${msg.isCustomer ? "text-right" : ""}`}>
+    //               <div className="flex items-center gap-2 mb-1">
+    //                 <span className={msg.isCustomer ? "order-1" : ""}>
+    //                   {msg.author}
+    //                 </span>
+    //                 <span className="text-gray-500">
+    //                   {formatTicketDate(msg.date)}
+    //                 </span>
+    //               </div>
+    //               <div
+    //                 className={`rounded-lg p-4 inline-block max-w-2xl ${
+    //                   msg.isCustomer
+    //                     ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+    //                     : "bg-gray-100 text-gray-900"
+    //                 }`}
+    //               >
+    //                 <p className="whitespace-pre-wrap text-left">
+    //                   {msg.content}
+    //                 </p>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         ))}
+    //       </div>
+
+    //       {ticket.statutId !== 4 && (
+    //         <div className="border-t border-gray-200 pt-6">
+    //           <h4 className="mb-3">Ajouter un message</h4>
+    //           <div className="space-y-3">
+    //             <div className="flex gap-3">
+    //               <Textarea
+    //                 value={message}
+    //                 onChange={(e) => setMessage(e.target.value)}
+    //                 placeholder="Écrivez votre message ici..."
+    //                 rows={4}
+    //                 className="flex-1 border-gray-200  hover:border-blue-400
+    //                   focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400
+    //                   transition-colors duration-200"
+    //               />
+    //             </div>
+    //             <div className="flex justify-between items-center">
+    //               <Button
+    //                 type="button"
+    //                 variant="ghost"
+    //                 className="text-gray-400 hover:text-gray-600"
+    //               >
+    //                 <Paperclip className="h-4 w-4 mr-2" />
+    //                 Joindre un fichier
+    //               </Button>
+    //               <Button
+    //                 variant="ghost"
+    //                 onClick={handleSendMessage}
+    //                 disabled={!message.trim()}
+    //                 className=" text-white-400 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+    //               >
+    //                 <Send className="h-4 w-4 mr-2" />
+    //                 Envoyer
+    //               </Button>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       )}
+    //     </CardContent>
+    //   </Card>
+
+    //   <Card>
+    //     <CardHeader>
+    //       <CardTitle className="flex items-center gap-2">
+    //         <Clock className="h-5 w-5 text-blue-600" />
+    //         Suivi du ticket
+    //       </CardTitle>
+    //     </CardHeader>
+    //     <CardContent className="p-6">
+    //       {/* Workflow avec les libellés d'ASP.NET */}
+    //       <div className="space-y-4">
+    //         {[1, 2, 3, 4].map((statutId) => {
+    //           const statusConfig = ticket_config.status[statutId];
+
+    //           // Déterminer le libellé à afficher
+    //           let label;
+    //           if (statutId === ticket.statutId) {
+    //             // Si c'est le statut actuel, utiliser celui d'ASP.NET
+    //             label = ticket.statutLibelle;
+    //           } else {
+    //             // Pour les autres, utiliser des libellés génériques
+    //             const genericLabels = {
+    //               1: "Ouvert",
+    //               2: "En cours",
+    //               3: "Resolu",
+    //               4: "Fermé",
+    //             };
+    //             label = genericLabels[statutId];
+    //           }
+
+    //           return (
+    //             <WorkflowStep
+    //               key={statutId}
+    //               num={statutId}
+    //               label={label}
+    //               active={ticket.statutId === statutId}
+    //               completed={ticket.statutId > statutId}
+    //               date={statutId === 1 ? ticket.dateCreTic : null}
+    //               statusColor={statusConfig?.color}
+    //             />
+    //           );
+    //         })}
+    //       </div>
+    //     </CardContent>
+    //   </Card>
+
+    //   {ticket.statutId === 3 && (
+    //     <Card className="bg-yellow-50 border-yellow-200">
+    //       <CardContent className="p-6">
+    //         <h4 className="mb-2">Le problème est-il résolu ?</h4>
+    //         <p className="text-gray-600 mb-4">
+    //           Si le problème persiste, vous pouvez rouvrir ce ticket en ajoutant
+    //           un message ci-dessus.
+    //         </p>
+    //         <Button
+    //           variant="outline"
+    //           className="border-yellow-600 text-yellow-700 hover:bg-yellow-100"
+    //         >
+    //           Rouvrir le ticket
+    //         </Button>
+    //       </CardContent>
+    //     </Card>
+    //   )}
+    // </div>
+
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <Card className="max-w-5xl w-full max-h-[90vh] overflow-y-auto">
+        <CardHeader className="border-b border-gray-200">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <CardTitle>{ticket.titreTic}</CardTitle>
+              </div>
+              <div className="flex items-center gap-2">
+                <span
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium 
                 ${ticket_config.priorite[ticket.prioriteId]?.bgColor || "bg-gray-100 text-gray-800"}`}
-              >
-                {ticket.prioriteLibelle}
-              </span>
-              <span>{ticket.categorieLibelle}</span>
+                >
+                  {ticket.prioriteLibelle}
+                </span>
+                <span
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium 
+                ${ticket_config.status[ticket.statutId]?.bgColor || "bg-gray-100 text-gray-800"}`}
+                >
+                  {ticket.statutLibelle}
+                </span>
+                <span className="text-gray-500">#TKT-0{ticket.numTic}</span>
+              </div>
             </div>
+            <Button variant="ghost" size="icon" onClick={onClose}>
+              <X className="h-5 w-5" />
+            </Button>
           </div>
         </CardHeader>
 
-        <CardContent className="p-6">
-          <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-            <AlertCircle className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
-            <div>
-              <h4 className="text-blue-900 mb-1">Description du ticket</h4>
-              <p className="text-blue-700">{ticket.descTic}</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div>
+        <CardContent className="space-y-6 p-6">
+          {/* Informations client */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1">
               <div className="flex items-center gap-2 text-gray-600">
                 <User className="h-4 w-4" />
-                <span className="block">Client</span>
+                <span>Client</span>
               </div>
-              <span className="text-gray-900">
+              <p>
                 {ticket.clientNom} {ticket.clientPrenom}
-              </span>
+              </p>
             </div>
-
-            <div>
+            <div className="space-y-1">
               <div className="flex items-center gap-2 text-gray-600">
-                <Calendar className="h-4 w-4" />
-                <span className="block">Créé le</span>
+                <Mail className="h-4 w-4" />
+                <span>Email</span>
               </div>
-              <span className="text-gray-900">
-                {formatTicketDate(ticket.dateCreTic)}
-              </span>
+              <p>{ticket.clientEmail || "Non renseigné"}</p>
             </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Tag className="h-4 w-4" />
-                  <span className="block">Catégorie</span>
-                </div>
-
-                <span className="text-gray-900">{ticket.categorieLibelle}</span>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-gray-600">
+                <Tag className="h-4 w-4" />
+                <span>Catégorie</span>
               </div>
+              <p>{ticket.categorieLibelle}</p>
+            </div>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-gray-600">
+                <Clock className="h-4 w-4" />
+                <span>Créé le</span>
+              </div>
+              <p>{formatTicketDate(ticket.dateCreTic)}</p>
             </div>
           </div>
 
+          {/* Description */}
+          <div className="space-y-2">
+            <h4 className="flex items-center gap-2">
+              <AlertCircle className="h-4 w-4 text-gray-600" />
+              Description initiale
+            </h4>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-gray-700 whitespace-pre-wrap">
+                {ticket.descTic}
+              </p>
+            </div>
+          </div>
+
+          {/* Assignation */}
           {ticket.assignedTo && (
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
               <p className="text-green-800">
@@ -565,159 +806,115 @@ export default function TicketDetail({ tickets }) {
               </p>
             </div>
           )}
-        </CardContent>
-      </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <MessageSquare className="h-5 w-5 text-blue-600" />
-            Conversation
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-6">
-          <div className="space-y-4 mb-6">
-            {demoMessages.map((msg) => (
-              <div
-                key={msg.id}
-                className={`flex gap-3 ${msg.isCustomer ? "flex-row-reverse" : ""}`}
-              >
-                <div
-                  className={`flex-shrink-0 h-10 w-10 rounded-full flex items-center justify-center ${
-                    msg.isCustomer
-                      ? "bg-gradient-to-br from-blue-600 to-purple-600 text-white"
-                      : "bg-gray-200 text-gray-600"
-                  }`}
-                >
-                  {msg.author.charAt(0).toUpperCase()}
-                </div>
-                <div className={`flex-1 ${msg.isCustomer ? "text-right" : ""}`}>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className={msg.isCustomer ? "order-1" : ""}>
-                      {msg.author}
-                    </span>
-                    <span className="text-gray-500">
-                      {formatTicketDate(msg.date)}
-                    </span>
-                  </div>
-                  <div
-                    className={`rounded-lg p-4 inline-block max-w-2xl ${
-                      msg.isCustomer
-                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
-                        : "bg-gray-100 text-gray-900"
-                    }`}
-                  >
-                    <p className="whitespace-pre-wrap text-left">
-                      {msg.content}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+          {/* Changement de statut */}
+          <div className="space-y-2">
+            <label htmlFor="status" className="block">
+              Statut du ticket
+            </label>
+            <select
+              id="status"
+              className="w-full p-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              value={ticket.statutId}
+              onChange={(e) =>
+                onUpdateStatus(ticket.id, parseInt(e.target.value))
+              }
+            >
+              {Object.entries(ticket_config.status).map(([id, config]) => (
+                <option key={id} value={id}>
+                  {config.label}
+                </option>
+              ))}
+            </select>
           </div>
 
-          {ticket.statutId !== 4 && (
-            <div className="border-t border-gray-200 pt-6">
-              <h4 className="mb-3">Ajouter un message</h4>
-              <div className="space-y-3">
-                <div className="flex gap-3">
-                  <Textarea
+          {/* Conversation avec MessageThread */}
+          <div className="space-y-4">
+            <h4 className="flex items-center gap-2">
+              <MessageSquare className="h-4 w-4 text-gray-600" />
+              Conversation
+            </h4>
+
+            <div className="space-y-4 max-h-96 overflow-y-auto p-2">
+              {demoMessages.map((msg) => (
+                <div
+                  key={msg.id}
+                  className={`flex gap-3 ${msg.isCustomer ? "flex-row-reverse" : ""}`}
+                >
+                  <div
+                    className={`flex-shrink-0 h-10 w-10 rounded-full flex items-center justify-center ${
+                      msg.isCustomer
+                        ? "bg-gradient-to-br from-blue-600 to-purple-600 text-white"
+                        : "bg-gray-200 text-gray-600"
+                    }`}
+                  >
+                    {msg.author.charAt(0).toUpperCase()}
+                  </div>
+                  <div
+                    className={`flex-1 ${msg.isCustomer ? "text-right" : ""}`}
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className={msg.isCustomer ? "order-1" : ""}>
+                        {msg.author}
+                      </span>
+                      <span className="text-gray-500">
+                        {formatTicketDate(msg.date)}
+                      </span>
+                    </div>
+                    <div
+                      className={`rounded-lg p-4 inline-block max-w-2xl ${
+                        msg.isCustomer
+                          ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+                          : "bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <p className="whitespace-pre-wrap text-left">
+                        {msg.content}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Ajout de message */}
+            {ticket.statutId !== 4 && (
+              <div className="border-t border-gray-200 pt-6">
+                <div className="space-y-3">
+                  <textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Écrivez votre message ici..."
                     rows={4}
-                    className="flex-1 border-gray-200  hover:border-blue-400 
-                      focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 
-                      transition-colors duration-200"
+                    className="w-full p-3 border border-gray-200 rounded-lg hover:border-blue-400 
+                    focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 
+                    transition-colors duration-200"
                   />
-                </div>
-                <div className="flex justify-between items-center">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    className="text-gray-400 hover:text-gray-600"
-                  >
-                    <Paperclip className="h-4 w-4 mr-2" />
-                    Joindre un fichier
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    onClick={handleSendMessage}
-                    disabled={!message.trim()}
-                    className=" text-white-400 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                  >
-                    <Send className="h-4 w-4 mr-2" />
-                    Envoyer
-                  </Button>
+                  <div className="flex justify-between items-center">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="text-gray-400 hover:text-gray-600"
+                    >
+                      <Paperclip className="h-4 w-4 mr-2" />
+                      Joindre un fichier
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      onClick={handleSendMessage}
+                      disabled={!message.trim()}
+                      className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700"
+                    >
+                      <Send className="h-4 w-4 mr-2" />
+                      Envoyer
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Clock className="h-5 w-5 text-blue-600" />
-            Suivi du ticket
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-6">
-          {/* Workflow avec les libellés d'ASP.NET */}
-          <div className="space-y-4">
-            {[1, 2, 3, 4].map((statutId) => {
-              const statusConfig = ticket_config.status[statutId];
-
-              // Déterminer le libellé à afficher
-              let label;
-              if (statutId === ticket.statutId) {
-                // Si c'est le statut actuel, utiliser celui d'ASP.NET
-                label = ticket.statutLibelle;
-              } else {
-                // Pour les autres, utiliser des libellés génériques
-                const genericLabels = {
-                  1: "Ouvert",
-                  2: "En cours",
-                  3: "Resolu",
-                  4: "Fermé",
-                };
-                label = genericLabels[statutId];
-              }
-
-              return (
-                <WorkflowStep
-                  key={statutId}
-                  num={statutId}
-                  label={label}
-                  active={ticket.statutId === statutId}
-                  completed={ticket.statutId > statutId}
-                  date={statutId === 1 ? ticket.dateCreTic : null}
-                  statusColor={statusConfig?.color}
-                />
-              );
-            })}
+            )}
           </div>
         </CardContent>
       </Card>
-
-      {ticket.statutId === 3 && (
-        <Card className="bg-yellow-50 border-yellow-200">
-          <CardContent className="p-6">
-            <h4 className="mb-2">Le problème est-il résolu ?</h4>
-            <p className="text-gray-600 mb-4">
-              Si le problème persiste, vous pouvez rouvrir ce ticket en ajoutant
-              un message ci-dessus.
-            </p>
-            <Button
-              variant="outline"
-              className="border-yellow-600 text-yellow-700 hover:bg-yellow-100"
-            >
-              Rouvrir le ticket
-            </Button>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 }

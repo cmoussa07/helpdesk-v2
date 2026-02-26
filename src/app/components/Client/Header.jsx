@@ -80,7 +80,7 @@ export default function Header() {
                 HelpDesk Pro
               </h1>
               <p className="text-xs text-slate-400 uppercase tracking-wider">
-                Centre d'Excellence
+                Centre d'Assistance
               </p>
             </div>
           </div>

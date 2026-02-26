@@ -29,3 +29,18 @@
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
+
+/* scroll invisible */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* visible au hover */
+.sidebar-scroll:hover::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}

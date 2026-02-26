@@ -16,7 +16,7 @@ export default function ListTicket({ tickets }) {
   // =========================
   const [recherche, setRecherche] = useState("");
   const [statutFiltre, setStatutFiltre] = useState("tous");
-  const [priorityFilter, setPriorityFilter] = useState("tous");
+  const [prioriteFiltre, setPrioriteFiltre] = useState("tous");
 
   const estSurLaPageMesTickets =
     location.pathname.startsWith("/Agent/MesTickets");
@@ -24,7 +24,7 @@ export default function ListTicket({ tickets }) {
   // =========================
   // FILTRAGE OPTIMISÉ (useMemo)
   // =========================
-  const filteredTickets = useMemo(() => {
+  const TicketsFiltres = useMemo(() => {
     const text = recherche.toLowerCase();
 
     return tickets.filter((ticket) => {
@@ -36,18 +36,18 @@ export default function ListTicket({ tickets }) {
       const matchesStatus =
         statutFiltre === "tous" || ticket.statutLibelle === statutFiltre;
 
-      const matchesPriority =
-        priorityFilter === "tous" || ticket.prioriteLibelle === priorityFilter;
+      const matchesPriorite =
+        prioriteFiltre === "tous" || ticket.prioriteLibelle === prioriteFiltre;
 
-      return matchesSearch && matchesStatus && matchesPriority;
+      return matchesSearch && matchesStatus && matchesPriorite;
     });
-  }, [tickets, recherche, statutFiltre, priorityFilter]);
+  }, [tickets, recherche, statutFiltre, prioriteFiltre]);
 
   // =========================
   // RENDU DES TICKETS
   // =========================
   const renduTicket =
-    filteredTickets.length === 0 ? (
+    TicketsFiltres.length === 0 ? (
       <Card>
         <CardContent className="flex flex-col items-center justify-center py-12">
           <AlertCircle className="h-12 w-12 text-red-400 mb-4" />
@@ -58,7 +58,7 @@ export default function ListTicket({ tickets }) {
         </CardContent>
       </Card>
     ) : (
-      filteredTickets.map((ticket) => (
+      TicketsFiltres.map((ticket) => (
         <Card
           key={ticket.numTic}
           className="cursor-pointer hover:shadow-lg transition-all border-2 border-transparent hover:border-blue-200 mb-4"
@@ -137,7 +137,7 @@ export default function ListTicket({ tickets }) {
           </button>
 
           <h1 className="text-center text-3xl">
-            Mes tickets ({filteredTickets.length})
+            Mes tickets ({TicketsFiltres.length})
           </h1>
         </>
       )}
@@ -171,8 +171,8 @@ export default function ListTicket({ tickets }) {
             </select>
 
             <select
-              value={priorityFilter}
-              onChange={(e) => setPriorityFilter(e.target.value)}
+              value={prioriteFiltre}
+              onChange={(e) => setPrioriteFiltre(e.target.value)}
               className="border border-gray-300 rounded-md hover:border-blue-500 focus:border-blue-300 focus:ring-2 focus:ring-blue-300 transition-colors"
             >
               <option value="tous">Toutes les priorités</option>
@@ -185,11 +185,11 @@ export default function ListTicket({ tickets }) {
 
           {(recherche ||
             statutFiltre !== "tous" ||
-            priorityFilter !== "tous") && (
+            prioriteFiltre !== "tous") && (
             <div className="mt-3 flex items-center gap-2 text-gray-600">
               <Filter className="h-4 w-4" />
               <span>
-                <strong>{filteredTickets.length}</strong> ticket(s) trouvé(s)
+                <strong>{TicketsFiltres.length}</strong> ticket(s) trouvé(s)
               </span>
             </div>
           )}

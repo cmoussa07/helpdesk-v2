@@ -30,17 +30,81 @@
   animation: float 3s ease-in-out infinite;
 }
 
-/* scroll invisible */
+/* Scroll invisible par défaut */
 .sidebar-scroll::-webkit-scrollbar {
-  width: 0px;
+  width: 6px; /* très fin */
 }
 
-/* visible au hover */
-.sidebar-scroll:hover::-webkit-scrollbar {
-  width: 6px;
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.2); /* couleur douce */
+  border-radius: 3px;
+  transition: background-color 0.2s;
+}
+
+/* Scroll visible au survol */
+.sidebar-scroll:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.4); /* plus visible au hover */
+}
+
+/* Pour éviter les débordements */
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Pour le scroll personnalisé */
+/* .overflow-auto::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.overflow-auto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb:hover {
+  background: #555;
+} */
+
+/* style moderne */
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+/* visible au hover seulement */
+.sidebar-scroll:hover {
+  scrollbar-color: rgba(100,100,100,0.4) transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: transparent;
   border-radius: 10px;
+}
+
+.sidebar-scroll:hover::-webkit-scrollbar-thumb {
+  background: rgba(100,100,100,0.4);
 }

@@ -64,7 +64,7 @@ export default function Faqs() {
             </button>
 
             <div className="mb-6">
-              <h1 className="text-center text-3xl">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-5 sm:mb-6">
                 Questions Fréquentes (FAQ)
               </h1>
             </div>

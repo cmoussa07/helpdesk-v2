@@ -1,6 +1,5 @@
-import {ArrowLeft, User, Paperclip, Send} from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-
+import { ArrowLeft, User, Paperclip, Send } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 //     const navigate = useNavigate();
 
@@ -10,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 //             <div>
 //                 <div className="max-w-7xl mx-auto px-6 py-4">
 //                     <button
-//                         onClick={()=>navigate("/")} 
+//                         onClick={()=>navigate("/")}
 //                         className="flex items-center gap-2 text-blue-600 hover:text-blue-700 ml-12 mb-6"
 //                         >
 //                         <ArrowLeft className="w-5 h-5" />
@@ -18,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 //                     </button>
 //                 </div>
 //             </div>
-         
+
 //             <div className="max-w-4xl mx-auto px-6 py-6 space-y-6 ">
 //                 {/* 1 - Bloc problème + message */}
 //                 <div className="bg-white rounded-t-xl shadow-sm">
@@ -83,12 +82,11 @@ import { useNavigate } from 'react-router-dom';
 //                         </div>
 //                     </div>
 //                 </div>
-//             </div>    
- 
-//         </div>   
+//             </div>
+
+//         </div>
 //     );
 // }
-
 
 // // Composant utilitaire pour le workflow
 // function WorkflowStep({ num, label, active, current }) {
@@ -115,10 +113,10 @@ import { useNavigate } from 'react-router-dom';
 //     </div>
 //   );
 
-  // app/components/Agent/AgentLayout.jsx
+// app/components/Agent/AgentLayout.jsx
 
 import Sidebar from "../Agent/Sidebar";
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet } from "react-router-dom";
 import {
   Home,
   Ticket,
@@ -128,19 +126,21 @@ import {
   Bell,
   MessageSquare,
   LogOut,
-} from 'lucide-react';
+} from "lucide-react";
 
 export default function Chats() {
-    return (
+  return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar fixe */}
       <Sidebar />
-      
-       {/* Main content area */}
+
+      {/* Main content area */}
       <main className="flex-1">
         {/* Contenu spécifique à la page Chats */}
         <div className="p-6">
-          <h1 className="text-2xl font-bold">Chats</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-5 sm:mb-6">
+            Chats
+          </h1>
           {/* Ajoutez ici le contenu de votre page Chats */}
         </div>
       </main>

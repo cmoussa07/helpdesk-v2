@@ -71,10 +71,12 @@ export default function CreateTicket({ tickets, setTickets }) {
   return (
     <div className="py-10">
       <div className="max-w-7xl mx-auto">
-        <h1 className="mb-6 text-center text-3xl">Créer un nouveau ticket</h1>
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-5 sm:mb-6">
+          Créer un nouveau ticket
+        </h1>
       </div>
 
-      <Card className="w-full max-w-4xl rounded-2xl border-2 border-blue-200 mx-auto">
+      <Card className="max-w-3xl rounded-2xl border-2 border-blue-200 mx-auto">
         <CardHeader className="bg-gray-100 rounded-t-2xl pt-1 pb-1">
           <h1 className="flex items-center gap-2 text-lg font-semibold mt-5 mb-5">
             <Send className="h-5 w-5 text-blue-600" />
@@ -184,7 +186,7 @@ export default function CreateTicket({ tickets, setTickets }) {
                 name="descTic"
                 value={nouveauTicket.descTic}
                 onChange={handleChange}
-                rows="8"
+                rows="5"
                 placeholder="Décrivez votre problème de manière détaillée. Plus vous donnez d'informations, plus nous pourrons vous aider rapidement."
                 className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 
                   hover:border-blue-400 

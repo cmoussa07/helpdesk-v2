@@ -5,7 +5,7 @@ export default function StatsSection({ tickets }) {
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card className="border-2 border-blue-100 hover:shadow-lg transition-shadow">
+        <Card className="hover:shadow-lg transition-all duration-200 hover:scale-105">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -24,7 +24,7 @@ export default function StatsSection({ tickets }) {
           </CardContent>
         </Card>
 
-        <Card className="border-2 border-orange-100 hover:shadow-lg transition-shadow">
+        <Card className="border-2 border-orange-100 hover:shadow-lg transition-all duration-200 hover:scale-105">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -39,7 +39,7 @@ export default function StatsSection({ tickets }) {
           </CardContent>
         </Card>
 
-        <Card className="border-2 border-green-100 hover:shadow-lg transition-shadow">
+        <Card className="border-2 border-green-100 hover:shadow-lg transition-all duration-200 hover:scale-105">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -59,14 +59,17 @@ export default function StatsSection({ tickets }) {
           </CardContent>
         </Card>
 
-        <Card className="border-2 border-red-100">
+        <Card className="border-2 border-red-100 hover:shadow-lg transition-all duration-200 hover:scale-105">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600">Fermés</p>
+                <p className="text-sm text-gray-600 mb-1">Fermés</p>
                 <p className="mt-2 text-2xl font-bold text-gray-600">5</p>
+                <p className="text-xs textred-600 mt-2">
+                  Tickets résolus et fermés
+                </p>
               </div>
-              <div>
+              <div className="bg-red-100 p-3 rounded-lg">
                 <XCircleIcon className="h-8 w-8 text-red-600" />
               </div>
             </div>

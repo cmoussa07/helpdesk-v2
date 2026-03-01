@@ -34,8 +34,8 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Navigate to="/Login" />} />
+          <Route path="/Login" element={<Login />} />
 
           <Route
             path="/Agent/*"

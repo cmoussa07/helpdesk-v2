@@ -18,7 +18,7 @@ export default function AdminLayout({ tickets, setTickets }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen bg-slate-50 overflow-hidden">
       <Sidebar setIsModalOpen={setIsModalOpen} />
 
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -42,7 +42,7 @@ export default function AdminLayout({ tickets, setTickets }) {
           />
         )}
 
-        <main className="flex-1 bg-gray-100 overflow-auto">
+        <main className="flex-1 bg-slate-50 overflow-auto">
           <div className="p-4">
             <Routes>
               <Route path="/" element={<DashboardAgent tickets={tickets} />} />

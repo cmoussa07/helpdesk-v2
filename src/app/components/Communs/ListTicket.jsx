@@ -174,25 +174,53 @@
 import { Clock, Search, AlertCircle, Filter } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useState, useMemo } from "react";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import { useState, useMemo, useEffect } from "react";
 import { ticketConfig } from "../utils/ticketConfig";
 import { formatDate } from "../utils/formatDate";
 import { TicketsFiltresComplet } from "../utils/FonctionFiltre";
 
+const STATUT_OPTIONS = [
+  { value: "tous", label: "Tous" },
+  { value: "Ouvert", label: "Ouvert" },
+  { value: "En cours", label: "En cours" },
+  { value: "Resolu", label: "Résolu" },
+  { value: "Ferme", label: "Fermé" },
+];
+
 export default function ListTicket({ tickets }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // STATES
+  const statutFromUrl = searchParams.get("statut");
+  const initialStatut =
+    statutFromUrl && STATUT_OPTIONS.some((o) => o.value === statutFromUrl)
+      ? statutFromUrl
+      : location.state?.statut || "tous";
+
   const [recherche, setRecherche] = useState("");
   const [prioriteFiltre, setPrioriteFiltre] = useState("tous");
+  const [statutFiltre, setStatutFiltre] = useState(initialStatut);
+
+  useEffect(() => {
+    setStatutFiltre(initialStatut);
+  }, [initialStatut]);
 
   const estSurLaPageAgentExacte = location.pathname === "/Agent";
 
-  const [statutFiltre, setStatutFiltre] = useState(
-    location.state?.statut || "tous",
-  ); // ← Filtre depuis sidebar
+  const handleStatutChange = (value) => {
+    setStatutFiltre(value);
+    if (value === "tous") {
+      searchParams.delete("statut");
+      setSearchParams(searchParams, { replace: true });
+    } else {
+      setSearchParams(
+        { ...Object.fromEntries(searchParams), statut: value },
+        { replace: true }
+      );
+    }
+  };
 
   const TicketsFiltres = useMemo(
     () =>
@@ -285,14 +313,14 @@ export default function ListTicket({ tickets }) {
 
               <select
                 value={statutFiltre}
-                onChange={(e) => setStatutFiltre(e.target.value)}
+                onChange={(e) => handleStatutChange(e.target.value)}
                 className="border border-gray-300 rounded-md hover:border-blue-500 focus:border-blue-300 focus:ring-2 focus:ring-blue-300 transition-colors"
               >
-                <option value="tous">Tous les statuts</option>
-                <option value="Ouvert">Ouvert</option>
-                <option value="En cours">En cours</option>
-                <option value="Resolu">Résolu</option>
-                <option value="Ferme">Fermé</option>
+                {STATUT_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
               </select>
 
               <select

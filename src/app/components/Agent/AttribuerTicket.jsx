@@ -193,24 +193,34 @@
 // }
 
 import { useState, useMemo } from "react";
-import { Search, AlertCircle, Clock, Plus } from "lucide-react";
+import { Search, AlertCircle, Clock, Users } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { motion } from "framer-motion";
 import { formatDate } from "../utils/formatDate";
 import { ticketConfig } from "../utils/ticketConfig";
 import { TicketsFiltresStatut } from "../utils/FonctionFiltre";
+import {
+  getMembresPourCategorie,
+  getEquipePourCategorie,
+  getLibelleCategorie,
+  CATEGORIES,
+  MEMBRES_EQUIPES,
+} from "../../config/equipes";
+
+/** Retourne le categorieId du ticket (depuis API ou déduit du libellé). */
+function getCategorieId(ticket) {
+  if (ticket.categorieId != null) return ticket.categorieId;
+  const libelle = (ticket.categorieLibelle || "").trim();
+  const cat = CATEGORIES.find(
+    (c) => c.libelle.toLowerCase() === libelle.toLowerCase()
+  );
+  return cat?.id ?? null;
+}
 
 export default function AttribuerTicket({ tickets, setTickets }) {
   const [recherche, setRecherche] = useState("");
   const [statutFiltre, setStatutFiltre] = useState("statuts");
-
-  const membresEquipe = [
-    { id: 1, nom: "Paul Dupont" },
-    { id: 2, nom: "Marie Leroy" },
-    { id: 3, nom: "Ali Koné" },
-  ];
-
   const [selection, setSelection] = useState({});
 
   const handleAttribuer = (ticketNum) => {
@@ -219,7 +229,8 @@ export default function AttribuerTicket({ tickets, setTickets }) {
       alert("Veuillez sélectionner un membre avant d'attribuer !");
       return;
     }
-    const membreNom = membresEquipe.find((m) => m.id === membreId).nom;
+    const membre = MEMBRES_EQUIPES.find((m) => m.id === parseInt(membreId, 10));
+    const membreNom = membre?.nom ?? `Membre #${membreId}`;
     setTickets((prev) =>
       prev.map((t) =>
         t.numTic === ticketNum ? { ...t, assigne: membreNom } : t,
@@ -346,44 +357,57 @@ export default function AttribuerTicket({ tickets, setTickets }) {
                           •
                         </span>
                         <span className="break-words">
-                          {ticket.categorieLibelle}
+                          {ticket.categorieLibelle ?? getLibelleCategorie(getCategorieId(ticket))}
                         </span>
                       </div>
                     </div>
 
-                    {/* Attribution */}
-                    <div className="flex flex-row lg:flex-col items-center lg:items-stretch gap-2 mt-2 lg:mt-0 lg:min-w-[200px]">
-                      <select
-                        value={selection[ticket.numTic] || ""}
-                        onChange={(e) =>
-                          setSelection((prev) => ({
-                            ...prev,
-                            [ticket.numTic]: parseInt(e.target.value),
-                          }))
-                        }
-                        className="flex-1 lg:flex-none border border-gray-300 rounded-md px-2 py-1.5 sm:px-3 sm:py-2 text-sm bg-white"
-                      >
-                        <option value="">Sélectionner</option>
-                        {membresEquipe.map((m) => (
-                          <option key={m.id} value={m.id}>
-                            {m.nom}
-                          </option>
-                        ))}
-                      </select>
-
-                      <button
-                        className="bg-blue-500 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md hover:bg-blue-600 text-sm whitespace-nowrap transition-all duration-300"
-                        onClick={() => handleAttribuer(ticket.numTic)}
-                      >
-                        Attribuer
-                      </button>
-
-                      {ticket.assigne && (
-                        <span className="text-green-600 text-xs sm:text-sm text-center lg:text-left mt-1 lg:mt-2">
-                          Assigné à {ticket.assigne}
-                        </span>
-                      )}
-                    </div>
+                    {/* Attribution : membres de l'équipe responsable de la catégorie */}
+                    {(() => {
+                      const categorieId = getCategorieId(ticket);
+                      const equipe = getEquipePourCategorie(categorieId);
+                      const membresAssignables = getMembresPourCategorie(categorieId);
+                      return (
+                        <div className="flex flex-col gap-2 mt-2 lg:mt-0 lg:min-w-[220px]">
+                          {equipe && (
+                            <p className="text-xs text-slate-500 flex items-center gap-1">
+                              <Users className="h-3.5 w-3.5" />
+                              {equipe.nom}
+                            </p>
+                          )}
+                          <div className="flex flex-row lg:flex-col items-center lg:items-stretch gap-2">
+                            <select
+                              value={selection[ticket.numTic] || ""}
+                              onChange={(e) =>
+                                setSelection((prev) => ({
+                                  ...prev,
+                                  [ticket.numTic]: e.target.value ? parseInt(e.target.value, 10) : null,
+                                }))
+                              }
+                              className="flex-1 lg:flex-none border border-gray-300 rounded-md px-2 py-1.5 sm:px-3 sm:py-2 text-sm bg-white w-full"
+                            >
+                              <option value="">Sélectionner un membre</option>
+                              {membresAssignables.map((m) => (
+                                <option key={m.id} value={m.id}>
+                                  {m.nom}
+                                </option>
+                              ))}
+                            </select>
+                            <button
+                              className="bg-blue-500 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md hover:bg-blue-600 text-sm whitespace-nowrap transition-all duration-300"
+                              onClick={() => handleAttribuer(ticket.numTic)}
+                            >
+                              Attribuer
+                            </button>
+                          </div>
+                          {ticket.assigne && (
+                            <span className="text-green-600 text-xs sm:text-sm">
+                              Assigné à {ticket.assigne}
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })()}
                   </div>
                 </CardContent>
               </Card>

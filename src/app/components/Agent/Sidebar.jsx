@@ -898,7 +898,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
 import { TbUsersPlus } from "react-icons/tb";
 import { RiSettings4Line } from "react-icons/ri";
-import { Inbox, Plus, Users, Clock } from "lucide-react";
+import { Inbox, Users, Clock } from "lucide-react";
 import { LuMessageCircleMore } from "react-icons/lu";
 
 // const menuItems = [
@@ -964,53 +964,46 @@ import { LuMessageCircleMore } from "react-icons/lu";
 //   },
 // ];
 
-export default function Sidebar({ setIsModalOpen }) {
+export default function Sidebar() {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
 
   const menuItems = [
-    { section: "Général" },
+    { section: "Principal" },
     {
-      icon: <IoHomeOutline size={28} />,
+      icon: <IoHomeOutline size={22} />,
       label: "Tableau de bord",
       path: "/Agent",
     },
-
-    { section: "Tickets" },
     {
-      icon: <Plus size={28} />,
-      label: "Créer un ticket",
-      onClick: () => setIsModalOpen(true),
-    },
-    {
-      icon: <Inbox size={28} />,
+      icon: <Inbox size={22} />,
       label: "Tickets",
       path: "/Agent/MesTickets",
     },
 
     { section: "Équipe" },
     {
-      icon: <Users size={28} />,
+      icon: <Users size={22} />,
       label: "Membres équipe",
       path: "/Agent/Equipe",
     },
     {
-      icon: <TbUsersPlus size={28} />,
+      icon: <TbUsersPlus size={22} />,
       label: "Attribuer ticket",
       path: "/Agent/AttribuerTicket",
     },
 
     { section: "Communication" },
     {
-      icon: <LuMessageCircleMore size={28} />,
+      icon: <LuMessageCircleMore size={22} />,
       label: "Messagerie",
       path: "/Agent/Messagerie",
     },
 
     { section: "Paramètres" },
     {
-      icon: <RiSettings4Line size={28} />,
+      icon: <RiSettings4Line size={22} />,
       label: "Profil",
       path: "/Agent/Profil",
     },
@@ -1067,7 +1060,7 @@ export default function Sidebar({ setIsModalOpen }) {
                   transition-all duration-200 group`}
               >
                 {/* Icon */}
-                <span className={`min-w-[28px] flex justify-center ${location.pathname === item.path ? "text-slate-700" : "text-slate-500"}`}>
+                <span className={`min-w-[22px] flex justify-center ${location.pathname === item.path ? "text-slate-700" : "text-slate-500"}`}>
                   {item.icon}
                 </span>
 
@@ -1088,24 +1081,20 @@ export default function Sidebar({ setIsModalOpen }) {
             ),
           )}
         </ul>
-        {/* ACTIONS RAPIDES */}
+        {/* Raccourcis */}
         {open && (
-          <div className="mt-6 px-2">
-            <h3 className="text-slate-400 font-semibold text-xs mb-2 uppercase tracking-wider">
-              Actions rapides
-            </h3>
+          <div className="mt-6 px-2 pt-3 border-t border-slate-100">
+            <p className="text-slate-400 text-xs uppercase tracking-wider font-medium mb-2">
+              Raccourcis
+            </p>
             <ul className="space-y-0.5">
               <li className="flex items-center gap-2 text-slate-500 cursor-pointer hover:bg-slate-50 hover:text-slate-700 rounded-lg px-2 py-1.5 transition text-sm">
-                <Users size={18} />
+                <Users size={16} />
                 Clients
               </li>
               <li className="flex items-center gap-2 text-slate-500 cursor-pointer hover:bg-slate-50 hover:text-slate-700 rounded-lg px-2 py-1.5 transition text-sm">
-                <Clock size={18} />
+                <Clock size={16} />
                 Rapports
-              </li>
-              <li className="flex items-center gap-2 text-slate-500 cursor-pointer hover:bg-slate-50 hover:text-slate-700 rounded-lg px-2 py-1.5 transition text-sm">
-                <RiSettings4Line size={18} />
-                Paramètres
               </li>
             </ul>
           </div>

@@ -42,36 +42,23 @@ export default function DashboardAgent({ tickets, setTickets }) {
     .slice(0, 5);
 
   return (
-    <div
-      className="
-      min-h-screen p-6
-      bg-gradient-to-br from-slate-50 via-blue-50 to-violet-50
-    "
-    >
-      {/* Header animé */}
+    <div className="min-h-screen p-6 bg-slate-50">
+      {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.4 }}
         className="mb-8"
       >
         <div className="flex items-center gap-3">
-          <div
-            className="
-            p-3 rounded-2xl
-            bg-gradient-to-r from-blue-600 to-violet-600
-            text-white shadow-lg
-          "
-          >
+          <div className="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-600 shadow-sm">
             <LayoutDashboard size={22} />
           </div>
-
           <div>
-            <h2 className="text-3xl font-bold text-slate-800">
+            <h2 className="text-2xl font-semibold text-slate-800">
               Tableau de bord
             </h2>
-
-            <p className="text-slate-500 mt-1">
+            <p className="text-slate-500 text-sm mt-0.5">
               Vue d'ensemble de votre système d'assistance
             </p>
           </div>
@@ -94,21 +81,10 @@ export default function DashboardAgent({ tickets, setTickets }) {
         transition={{ delay: 0.3 }}
         className="mt-8"
       >
-        <Card
-          className="
-            mx-1
-            rounded-2xl
-            shadow-md
-            border-0
-            bg-white/95
-            backdrop-blur-md
-            hover:shadow-xl
-            transition-all duration-300
-          "
-        >
-          <CardHeader className="pb-4 border-b border-slate-100">
-            <CardTitle className="text-lg font-semibold text-slate-700">
-              🎫 Tickets récents
+        <Card className="mx-1 rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow transition-shadow">
+          <CardHeader className="pb-3 border-b border-slate-100">
+            <CardTitle className="text-base font-semibold text-slate-700">
+              Tickets récents
             </CardTitle>
           </CardHeader>
 

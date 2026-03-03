@@ -360,141 +360,93 @@ export default function Header({ tickets }) {
   // );
 
   return (
-    <nav
-      className="
-    bg-gradient-to-r from-blue-600 to-violet-600
-    shadow-xl
-    sticky top-0 z-40
-    backdrop-blur-md
-  "
-    >
+    <nav className="bg-white border-b border-slate-200 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14">
           {/* Left Section */}
-          <div className="flex items-center gap-8">
-            <h1 className="text-white text-2xl font-bold tracking-wide pt-2">
+          <div className="flex items-center gap-6">
+            <h1 className="text-slate-800 text-xl font-semibold tracking-tight">
               Centre d'Assistance
             </h1>
 
             {/* Barre de recherche */}
             <div className="relative hidden md:block">
               <form onSubmit={handleSearch}>
-                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
                   type="text"
                   placeholder="Rechercher un ticket, client ou ID..."
                   value={MotCle}
                   onChange={(e) => setMotCle(e.target.value)}
-                  className="
-                  pl-10 pr-4 py-2 w-96
-                  rounded-xl
-                  bg-white/95
-                  shadow-md
-                  focus:outline-none
-                  focus:ring-2 focus:ring-violet-400
-                  hover:shadow-lg
-                  transition-all duration-300
-                  text-sm
-                "
+                  className="pl-9 pr-4 py-2 w-80 rounded-lg bg-slate-50 border border-slate-200
+                    focus:outline-none focus:ring-2 focus:ring-slate-200 focus:border-slate-300
+                    placeholder:text-slate-400 text-sm text-slate-800 transition-colors"
                 />
               </form>
             </div>
           </div>
 
           {/* Right Section */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {/* Tickets button */}
             <div className="relative group">
               <button
                 onClick={() =>
                   navigate("/Agent/MesTickets", { state: { tickets } })
                 }
-                className="
-                p-2 bg-white/95 rounded-xl
-                hover:scale-105 hover:shadow-lg
-                transition-all "
+                className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-colors"
               >
-                <Ticket className="w-5 h-5 text-blue-600" />
-
+                <Ticket className="w-5 h-5" />
                 {ticketCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-0.5 -right-0.5 bg-amber-500 text-white text-[10px] font-medium rounded-full h-4 min-w-4 flex items-center justify-center px-1">
                     {ticketCount}
                   </span>
                 )}
               </button>
-
-              {/* Tooltip */}
-              <span
-                className="absolute -bottom-8 left-1/2 -translate-x-1/2
-               opacity-0 group-hover:opacity-100
-               bg-white text-black text-xs px-2 py-1 rounded
-               transition duration-200 whitespace-nowrap"
-              >
+              <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap transition-opacity pointer-events-none">
                 Mes Tickets
               </span>
             </div>
 
             {/* Notifications */}
             <div className="relative group">
-              <button
-                className="
-              relative p-2 bg-white/95 rounded-xl
-              hover:scale-105 hover:shadow-lg
-              transition-all
-            "
-              >
-                <IoMdNotificationsOutline className="w-5 h-5 text-blue-600" />
-
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+              <button className="relative p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-colors">
+                <IoMdNotificationsOutline className="w-5 h-5" />
+                <span className="absolute -top-0.5 -right-0.5 bg-amber-500 text-white text-[10px] font-medium rounded-full h-4 min-w-4 flex items-center justify-center px-1">
                   {ticketCount}
                 </span>
               </button>
-              {/* Tooltip */}
-              <span
-                className="absolute -bottom-8 left-1/2 -translate-x-1/2
-               opacity-0 group-hover:opacity-100
-               bg-white text-black text-xs px-2 py-1 rounded
-               transition duration-200 whitespace-nowrap"
-              >
-                Mes notifications
+              <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap transition-opacity pointer-events-none">
+                Notifications
               </span>
             </div>
 
             {/* Profil */}
-            <div className="relative" ref={dropdownRef}>
+            <div className="relative ml-1" ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="
-                rounded-full overflow-hidden
-                border-2 border-white
-                hover:scale-105
-                transition-all
-              "
+                className="rounded-full overflow-hidden ring-2 ring-slate-100 hover:ring-slate-200 transition-all"
               >
                 <img
-                  alt=""
+                  alt="Profil"
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
                   className="size-8 object-cover"
                 />
               </button>
 
               {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-52 bg-white text-gray-800 rounded-2xl shadow-2xl z-50 animate-fadeIn">
-                  <ul className="py-2">
-                    <li className="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 cursor-pointer">
-                      <User className="w-4 h-4 text-blue-600" />
+                <div className="absolute right-0 mt-2 w-52 bg-white text-slate-800 rounded-xl border border-slate-200 shadow-lg z-50 py-1">
+                  <ul className="py-1">
+                    <li className="flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 cursor-pointer rounded-lg mx-1">
+                      <User className="w-4 h-4 text-slate-500" />
                       <span className="text-sm">Mon Profil</span>
                     </li>
-
-                    <li className="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 cursor-pointer">
-                      <Settings className="w-4 h-4 text-blue-600" />
+                    <li className="flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 cursor-pointer rounded-lg mx-1">
+                      <Settings className="w-4 h-4 text-slate-500" />
                       <span className="text-sm">Paramètres</span>
                     </li>
-
-                    <li className="border-t border-gray-200 my-1"></li>
-
-                    <li className="flex items-center gap-3 px-4 py-3 hover:bg-red-50 text-red-600 cursor-pointer">
+                    <li className="border-t border-slate-100 my-1" />
+                    <li className="flex items-center gap-3 px-3 py-2.5 hover:bg-red-50 text-red-600 cursor-pointer rounded-lg mx-1">
                       <LogOut className="w-4 h-4" />
                       <span className="text-sm font-medium">Déconnexion</span>
                     </li>

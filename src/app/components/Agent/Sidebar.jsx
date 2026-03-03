@@ -898,7 +898,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
 import { TbUsersPlus } from "react-icons/tb";
 import { RiSettings4Line } from "react-icons/ri";
-import { Inbox, Plus, Users, Clock, CheckCircle2, XCircle } from "lucide-react";
+import { Inbox, Users, Clock } from "lucide-react";
 import { LuMessageCircleMore } from "react-icons/lu";
 
 // const menuItems = [
@@ -964,73 +964,46 @@ import { LuMessageCircleMore } from "react-icons/lu";
 //   },
 // ];
 
-export default function Sidebar({ setIsModalOpen }) {
+export default function Sidebar() {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
 
   const menuItems = [
-    { section: "Général" },
+    { section: "Principal" },
     {
-      icon: <IoHomeOutline size={28} />,
+      icon: <IoHomeOutline size={22} />,
       label: "Tableau de bord",
       path: "/Agent",
     },
-
-    { section: "Tickets" },
     {
-      icon: <Plus size={28} />,
-      label: "Créer un ticket",
-      onClick: () => setIsModalOpen(true),
-      statut: "tous",
-    },
-    {
-      icon: <Inbox size={28} />,
-      label: "Tous les tickets",
+      icon: <Inbox size={22} />,
+      label: "Tickets",
       path: "/Agent/MesTickets",
-      statut: "tous",
-    },
-    {
-      icon: <Clock size={28} />,
-      label: "Tickets En cours",
-      path: "/Agent/MesTickets",
-      statut: "En cours",
-    },
-    {
-      icon: <CheckCircle2 size={28} />,
-      label: "Tickets Résolu",
-      path: "/Agent/MesTickets",
-      statut: "Résolu",
-    },
-    {
-      icon: <XCircle size={28} />,
-      label: "Tickets Fermés",
-      path: "/Agent/MesTickets",
-      statut: "Fermé",
     },
 
     { section: "Équipe" },
     {
-      icon: <Users size={28} />,
+      icon: <Users size={22} />,
       label: "Membres équipe",
       path: "/Agent/Equipe",
     },
     {
-      icon: <TbUsersPlus size={28} />,
+      icon: <TbUsersPlus size={22} />,
       label: "Attribuer ticket",
       path: "/Agent/AttribuerTicket",
     },
 
     { section: "Communication" },
     {
-      icon: <LuMessageCircleMore size={28} />,
+      icon: <LuMessageCircleMore size={22} />,
       label: "Messagerie",
       path: "/Agent/Messagerie",
     },
 
     { section: "Paramètres" },
     {
-      icon: <RiSettings4Line size={28} />,
+      icon: <RiSettings4Line size={22} />,
       label: "Profil",
       path: "/Agent/Profil",
     },
@@ -1038,32 +1011,32 @@ export default function Sidebar({ setIsModalOpen }) {
 
   return (
     <aside
-      className={`h-screen flex flex-col bg-gradient-to-b from-blue-600 to-violet-600 text-white
-      shadow-xl transition-width duration-300 overflow-hidden ${open ? "w-64" : "w-16"}`}
+      className={`h-screen flex flex-col bg-white text-slate-700
+      border-r border-slate-200 transition-[width] duration-300 overflow-hidden ${open ? "w-64" : "w-16"}`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between h-16 px-3 border-b border-white/20">
+      <div className="flex items-center justify-between h-16 px-3 border-b border-slate-100">
         <img
           src={logo}
           alt="Logo"
-          className={`rounded-xl transition-all duration-300 ${open ? "w-10 opacity-100" : "w-0 opacity-0"}`}
+          className={`rounded-lg transition-all duration-300 ${open ? "w-9 opacity-100" : "w-0 opacity-0"}`}
         />
         <MdMenuOpen
-          size={28}
+          size={26}
           onClick={() => setOpen(!open)}
-          className={`cursor-pointer transition-transform hover:scale-110 ${!open && "rotate-180"}`}
+          className={`cursor-pointer text-slate-500 hover:text-slate-700 transition-transform ${!open && "rotate-180"}`}
         />
       </div>
 
       {/* Menu */}
       <div className="flex-1 overflow-y-auto sidebar-scroll py-3">
-        <ul className="space-y-1 px-2">
+        <ul className="space-y-0.5 px-2">
           {menuItems.map((item, index) =>
             item.section ? (
               open && (
                 <p
                   key={index}
-                  className="text-xs text-white/60 uppercase mt-4 mb-2 px-2 tracking-wider select-none"
+                  className="text-xs text-slate-400 uppercase mt-4 mb-2 px-2 tracking-wider select-none font-medium"
                 >
                   {item.section}
                 </p>
@@ -1075,14 +1048,19 @@ export default function Sidebar({ setIsModalOpen }) {
                   item.onClick
                     ? item.onClick
                     : () =>
-                        navigate(item.path, { state: { statut: item.statut } })
+                        navigate(
+                          item.path,
+                          item.statut != null
+                            ? { state: { statut: item.statut } }
+                            : undefined
+                        )
                 }
-                className={`relative flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer
-                  ${location.pathname === item.path ? "bg-white/25 shadow-lg" : "hover:bg-white/20 hover:translate-x-1"}
+                className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer
+                  ${location.pathname === item.path ? "bg-slate-100 text-slate-900" : "hover:bg-slate-50 text-slate-600 hover:text-slate-900"}
                   transition-all duration-200 group`}
               >
                 {/* Icon */}
-                <span className="min-w-[28px] flex justify-center">
+                <span className={`min-w-[22px] flex justify-center ${location.pathname === item.path ? "text-slate-700" : "text-slate-500"}`}>
                   {item.icon}
                 </span>
 
@@ -1092,11 +1070,9 @@ export default function Sidebar({ setIsModalOpen }) {
                 )}
 
                 {/* Tooltip when closed */}
-                {open && (
+                {!open && (
                   <span
-                    className={`${
-                      open && "hidden"
-                    } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+                    className="absolute left-14 bg-slate-800 text-white text-xs font-medium whitespace-nowrap rounded-md px-2 py-1.5 shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 z-50"
                   >
                     {item.label}
                   </span>
@@ -1105,24 +1081,20 @@ export default function Sidebar({ setIsModalOpen }) {
             ),
           )}
         </ul>
-        {/* ACTIONS RAPIDES */}
+        {/* Raccourcis */}
         {open && (
-          <div className="mt-6 px-2">
-            <h3 className="text-blue-300 font-semibold text-sm mb-2 uppercase">
-              Actions rapides
-            </h3>
-            <ul className="space-y-2">
-              <li className="flex items-center gap-2 text-blue-300 cursor-pointer hover:bg-blue-50 hover:text-blue-600 rounded-lg px-2 py-1 transition">
-                <Users size={20} />
+          <div className="mt-6 px-2 pt-3 border-t border-slate-100">
+            <p className="text-slate-400 text-xs uppercase tracking-wider font-medium mb-2">
+              Raccourcis
+            </p>
+            <ul className="space-y-0.5">
+              <li className="flex items-center gap-2 text-slate-500 cursor-pointer hover:bg-slate-50 hover:text-slate-700 rounded-lg px-2 py-1.5 transition text-sm">
+                <Users size={16} />
                 Clients
               </li>
-              <li className="flex items-center gap-2 text-blue-300 cursor-pointer hover:bg-blue-50 hover:text-blue-600 rounded-lg px-2 py-1 transition">
-                <Clock size={20} />
+              <li className="flex items-center gap-2 text-slate-500 cursor-pointer hover:bg-slate-50 hover:text-slate-700 rounded-lg px-2 py-1.5 transition text-sm">
+                <Clock size={16} />
                 Rapports
-              </li>
-              <li className="flex items-center gap-2 text-blue-300 cursor-pointer hover:bg-blue-50 hover:text-blue-600 rounded-lg px-2 py-1 transition">
-                <RiSettings4Line size={20} />
-                Paramètres
               </li>
             </ul>
           </div>
@@ -1130,12 +1102,12 @@ export default function Sidebar({ setIsModalOpen }) {
       </div>
 
       {/* Footer */}
-      <div className="flex items-center gap-2 px-3 py-3 mt-auto bg-white/10 backdrop-blur-md rounded-t-2xl">
-        <FaUserCircle size={28} />
+      <div className="flex items-center gap-2 px-3 py-3 mt-auto border-t border-slate-100 bg-slate-50/50">
+        <FaUserCircle size={26} className="text-slate-400 flex-shrink-0" />
         {open && (
-          <div className="leading-5 text-sm overflow-hidden">
-            <p className="font-medium">Saheb</p>
-            <span className="text-xs text-white/70">saheb@gmail.com</span>
+          <div className="leading-5 text-sm overflow-hidden min-w-0">
+            <p className="font-medium text-slate-800 truncate">Saheb</p>
+            <span className="text-xs text-slate-500 truncate block">saheb@gmail.com</span>
           </div>
         )}
       </div>

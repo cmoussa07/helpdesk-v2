@@ -18,8 +18,8 @@ export default function AdminLayout({ tickets, setTickets }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
-      <Sidebar setIsModalOpen={setIsModalOpen} />
+    <div className="flex h-screen bg-slate-50 overflow-hidden">
+      <Sidebar />
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header tickets={tickets} setIsModalOpen={setIsModalOpen} />
@@ -42,7 +42,7 @@ export default function AdminLayout({ tickets, setTickets }) {
           />
         )}
 
-        <main className="flex-1 bg-gray-100 overflow-auto">
+        <main className="flex-1 bg-slate-50 overflow-auto">
           <div className="p-4">
             <Routes>
               <Route path="/" element={<DashboardAgent tickets={tickets} />} />
@@ -69,7 +69,7 @@ export default function AdminLayout({ tickets, setTickets }) {
                   <AttribuerTicket tickets={tickets} setTickets={setTickets} />
                 }
               />
-              <Route path="Messagerie" element={<Messagerie />} />
+              <Route path="Messagerie" element={<Messagerie tickets={tickets} />} />
             </Routes>
           </div>
         </main>

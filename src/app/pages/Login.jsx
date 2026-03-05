@@ -218,7 +218,7 @@ export default function Login() {
           </div> */}
 
           {/* Bouton Agent / Admin */}
-          {/* <div className="mt-4">
+          <div className="mt-4">
             <Button
               onClick={handleAgentLogin}
               variant="outline"
@@ -226,7 +226,8 @@ export default function Login() {
             >
               <UserCog className="h-5 w-5 text-gray-600" />
               <span>Accès Agent / Administrateur</span>
-            </Button> */}
+            </Button>
+          </div>
 
           {/* Informations agent */}
           {/* <div className="mt-2 text-xs text-gray-500 text-center">

@@ -178,6 +178,7 @@ import {
   Filter,
   ChevronRight,
   FolderOpen,
+  User,
 } from "lucide-react";
 import { Input } from "../ui/input";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
@@ -257,7 +258,7 @@ export default function ListTicket({ tickets }) {
           return (
             <li
               key={ticket.numTic}
-              onClick={() => navigate(`/Communs/TicketDetail/${ticket.numTic}`)}
+              onClick={() => navigate(`/Agent/TicketDetail/${ticket.numTic}`)}
               className="group flex items-center gap-4 p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-300 hover:shadow-md transition-all cursor-pointer"
             >
               {/* Barre latérale colorée par statut */}
@@ -297,18 +298,24 @@ export default function ListTicket({ tickets }) {
                   </p>
                 )}
                 <div className="flex flex-wrap items-center gap-3 mt-2 text-slate-400 text-xs">
+                  {/* Client */}
+                  <span className="flex items-center gap-1">
+                    <User className="h-3.5 w-3.5" />
+                    {ticket.clientNom} {ticket.clientPrenom}
+                  </span>
+
                   <span className="flex items-center gap-1">
                     <Clock className="h-3.5 w-3.5" />
                     {formatDate(ticket.dateCreTic)}
                   </span>
+
+                  {/* Catégorie */}
                   {ticket.categorieLibelle && (
-                    <>
+                    <span className="flex items-center gap-1">
                       <span className="text-slate-200">·</span>
-                      <span className="flex items-center gap-1">
-                        <FolderOpen className="h-3.5 w-3.5" />
-                        {ticket.categorieLibelle}
-                      </span>
-                    </>
+                      <FolderOpen className="h-3.5 w-3.5" />
+                      {ticket.categorieLibelle}
+                    </span>
                   )}
                 </div>
               </div>

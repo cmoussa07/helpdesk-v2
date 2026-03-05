@@ -216,7 +216,7 @@ export default function CreateTicketModal({
                 ${
                   loading
                     ? "from-gray-400 to-gray-500"
-                    : "from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                    : "from-blue-600  hover:from-blue-700 hover:to-blue-800 to-blue-700"
                 } text-white h-12`}
               >
                 {loading ? "Création en cours..." : "Créer le ticket"}

@@ -64,6 +64,10 @@ export default function AdminLayout({ tickets, setTickets }) {
                 }
               />
               <Route
+                path="TicketDetail/:id"
+                element={<TicketDetail tickets={tickets} />}
+              />
+              <Route
                 path="AttribuerTicket"
                 element={
                   <AttribuerTicket tickets={tickets} setTickets={setTickets} />

@@ -9,7 +9,8 @@ import { useState, useEffect } from "react";
 import { AuthProvider } from "./app/context/AuthContext";
 import ProtectedRoute from "./app/routes/ProtectectionRoute";
 
-import Login from "./app/pages/login";
+import Login from "./app/pages/Login";
+// import Inscription from "./app/pages/Inscription";
 import AdminLayout from "./app/layouts/AdminLayout";
 import ClientLayout from "./app/layouts/ClientLayout";
 
@@ -36,6 +37,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/Login" />} />
           <Route path="/Login" element={<Login />} />
+
+          {/* <Route path="/Inscription" element={<Inscription />} /> */}
 
           <Route
             path="/Agent/*"

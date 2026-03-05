@@ -171,7 +171,15 @@
 //   );
 // }
 
-import { Clock, Search, AlertCircle, Filter, ChevronRight, FolderOpen } from "lucide-react";
+import {
+  Clock,
+  Search,
+  AlertCircle,
+  Filter,
+  ChevronRight,
+  FolderOpen,
+  User,
+} from "lucide-react";
 import { Input } from "../ui/input";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { useState, useMemo, useEffect } from "react";
@@ -216,7 +224,7 @@ export default function ListTicket({ tickets }) {
     } else {
       setSearchParams(
         { ...Object.fromEntries(searchParams), statut: value },
-        { replace: true }
+        { replace: true },
       );
     }
   };
@@ -241,12 +249,16 @@ export default function ListTicket({ tickets }) {
     ) : (
       <ul className="space-y-3">
         {TicketsFiltres.map((ticket) => {
-          const statusBg = ticketConfig.status[ticket.statutId]?.bgColor || "bg-slate-100 text-slate-700";
-          const prioriteBg = ticketConfig.priorite[ticket.prioriteId]?.bgColor || "bg-slate-100 text-slate-600";
+          const statusBg =
+            ticketConfig.status[ticket.statutId]?.bgColor ||
+            "bg-slate-100 text-slate-700";
+          const prioriteBg =
+            ticketConfig.priorite[ticket.prioriteId]?.bgColor ||
+            "bg-slate-100 text-slate-600";
           return (
             <li
               key={ticket.numTic}
-              onClick={() => navigate(`/Communs/TicketDetail/${ticket.numTic}`)}
+              onClick={() => navigate(`/Agent/TicketDetail/${ticket.numTic}`)}
               className="group flex items-center gap-4 p-4 rounded-xl border border-slate-200 bg-white hover:border-slate-300 hover:shadow-md transition-all cursor-pointer"
             >
               {/* Barre latérale colorée par statut */}
@@ -286,18 +298,24 @@ export default function ListTicket({ tickets }) {
                   </p>
                 )}
                 <div className="flex flex-wrap items-center gap-3 mt-2 text-slate-400 text-xs">
+                  {/* Client */}
+                  <span className="flex items-center gap-1">
+                    <User className="h-3.5 w-3.5" />
+                    {ticket.clientNom} {ticket.clientPrenom}
+                  </span>
+
                   <span className="flex items-center gap-1">
                     <Clock className="h-3.5 w-3.5" />
                     {formatDate(ticket.dateCreTic)}
                   </span>
+
+                  {/* Catégorie */}
                   {ticket.categorieLibelle && (
-                    <>
+                    <span className="flex items-center gap-1">
                       <span className="text-slate-200">·</span>
-                      <span className="flex items-center gap-1">
-                        <FolderOpen className="h-3.5 w-3.5" />
-                        {ticket.categorieLibelle}
-                      </span>
-                    </>
+                      <FolderOpen className="h-3.5 w-3.5" />
+                      {ticket.categorieLibelle}
+                    </span>
                   )}
                 </div>
               </div>
@@ -355,8 +373,11 @@ export default function ListTicket({ tickets }) {
             <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-2 text-slate-500 text-sm">
               <Filter className="h-4 w-4" />
               <span>
-                <strong className="text-slate-700">{TicketsFiltres.length}</strong>{" "}
-                ticket{TicketsFiltres.length > 1 ? "s" : ""} trouvé{TicketsFiltres.length > 1 ? "s" : ""}
+                <strong className="text-slate-700">
+                  {TicketsFiltres.length}
+                </strong>{" "}
+                ticket{TicketsFiltres.length > 1 ? "s" : ""} trouvé
+                {TicketsFiltres.length > 1 ? "s" : ""}
               </span>
             </div>
           )}

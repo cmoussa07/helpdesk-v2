@@ -79,7 +79,7 @@ export default function DashboardAgent({ tickets, setTickets }) {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="mt-8"
+        className="max-w-7xl mt-8 px-6"
       >
         <Card className="mx-1 rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow transition-shadow">
           <CardHeader className="pb-3 border-b border-slate-100">

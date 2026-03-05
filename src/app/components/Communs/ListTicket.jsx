@@ -171,7 +171,14 @@
 //   );
 // }
 
-import { Clock, Search, AlertCircle, Filter, ChevronRight, FolderOpen } from "lucide-react";
+import {
+  Clock,
+  Search,
+  AlertCircle,
+  Filter,
+  ChevronRight,
+  FolderOpen,
+} from "lucide-react";
 import { Input } from "../ui/input";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { useState, useMemo, useEffect } from "react";
@@ -216,7 +223,7 @@ export default function ListTicket({ tickets }) {
     } else {
       setSearchParams(
         { ...Object.fromEntries(searchParams), statut: value },
-        { replace: true }
+        { replace: true },
       );
     }
   };
@@ -241,8 +248,12 @@ export default function ListTicket({ tickets }) {
     ) : (
       <ul className="space-y-3">
         {TicketsFiltres.map((ticket) => {
-          const statusBg = ticketConfig.status[ticket.statutId]?.bgColor || "bg-slate-100 text-slate-700";
-          const prioriteBg = ticketConfig.priorite[ticket.prioriteId]?.bgColor || "bg-slate-100 text-slate-600";
+          const statusBg =
+            ticketConfig.status[ticket.statutId]?.bgColor ||
+            "bg-slate-100 text-slate-700";
+          const prioriteBg =
+            ticketConfig.priorite[ticket.prioriteId]?.bgColor ||
+            "bg-slate-100 text-slate-600";
           return (
             <li
               key={ticket.numTic}
@@ -355,8 +366,11 @@ export default function ListTicket({ tickets }) {
             <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-2 text-slate-500 text-sm">
               <Filter className="h-4 w-4" />
               <span>
-                <strong className="text-slate-700">{TicketsFiltres.length}</strong>{" "}
-                ticket{TicketsFiltres.length > 1 ? "s" : ""} trouvé{TicketsFiltres.length > 1 ? "s" : ""}
+                <strong className="text-slate-700">
+                  {TicketsFiltres.length}
+                </strong>{" "}
+                ticket{TicketsFiltres.length > 1 ? "s" : ""} trouvé
+                {TicketsFiltres.length > 1 ? "s" : ""}
               </span>
             </div>
           )}

@@ -888,7 +888,8 @@
 //   );
 // }
 
-import logo from "../../../assets/logo.png";
+// import logo from "../../../assets/logo.png";
+import logo from "../../../assets/mon_helpdesk.jpg";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 
@@ -964,7 +965,7 @@ import { LuMessageCircleMore } from "react-icons/lu";
 //   },
 // ];
 
-export default function Sidebar() {
+export default function Sidebar({ tickets }) {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
@@ -980,6 +981,7 @@ export default function Sidebar() {
       icon: <Inbox size={22} />,
       label: "Tickets",
       path: "/Agent/MesTickets",
+      count: tickets.length, // Affiche le nombre de tickets
     },
 
     { section: "Équipe" },
@@ -1019,7 +1021,7 @@ export default function Sidebar() {
         <img
           src={logo}
           alt="Logo"
-          className={`rounded-lg transition-all duration-300 ${open ? "w-9 opacity-100" : "w-0 opacity-0"}`}
+          className={`ml-1 rounded-lg transition-all duration-300 ${open ? "w-20 opacity-100" : "w-0 opacity-0"}`}
         />
         <MdMenuOpen
           size={26}
@@ -1052,7 +1054,7 @@ export default function Sidebar() {
                           item.path,
                           item.statut != null
                             ? { state: { statut: item.statut } }
-                            : undefined
+                            : undefined,
                         )
                 }
                 className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer
@@ -1060,7 +1062,9 @@ export default function Sidebar() {
                   transition-all duration-200 group`}
               >
                 {/* Icon */}
-                <span className={`min-w-[22px] flex justify-center ${location.pathname === item.path ? "text-slate-700" : "text-slate-500"}`}>
+                <span
+                  className={`min-w-[22px] flex justify-center ${location.pathname === item.path ? "text-slate-700" : "text-slate-500"}`}
+                >
                   {item.icon}
                 </span>
 
@@ -1069,11 +1073,20 @@ export default function Sidebar() {
                   <span className="text-sm font-medium">{item.label}</span>
                 )}
 
+                {/* 🔥 Badge compteur*/}
+                {open && item.count != null && (
+                  <span
+                    className={`absolute ${
+                      open ? "right-3" : "top-1 right-1"
+                    } bg-yellow-600 text-white text-xs rounded-full min-w-[18px] h-4 px-1 flex items-center justify-center`}
+                  >
+                    {item.count > 9 ? "9+" : item.count}
+                  </span>
+                )}
+
                 {/* Tooltip when closed */}
                 {!open && (
-                  <span
-                    className="absolute left-14 bg-slate-800 text-white text-xs font-medium whitespace-nowrap rounded-md px-2 py-1.5 shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 z-50"
-                  >
+                  <span className="absolute left-14 bg-slate-800 text-white text-xs font-medium whitespace-nowrap rounded-md px-2 py-1.5 shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200 z-50">
                     {item.label}
                   </span>
                 )}
@@ -1083,18 +1096,38 @@ export default function Sidebar() {
         </ul>
         {/* Raccourcis */}
         {open && (
-          <div className="mt-6 px-2 pt-3 border-t border-slate-100">
-            <p className="text-slate-400 text-xs uppercase tracking-wider font-medium mb-2">
+          <div className="mt-6 px-3 pt-4 border-t border-slate-200/70">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-400 mb-3">
               Raccourcis
             </p>
-            <ul className="space-y-0.5">
-              <li className="flex items-center gap-2 text-slate-500 cursor-pointer hover:bg-slate-50 hover:text-slate-700 rounded-lg px-2 py-1.5 transition text-sm">
-                <Users size={16} />
-                Clients
+
+            <ul className="space-y-1">
+              {/* Item */}
+              <li
+                className="group flex items-center gap-3 px-2 py-3 rounded-lg cursor-pointer
+                text-sm font-medium text-slate-600
+                hover:bg-slate-100 hover:text-slate-900
+                transition-all duration-200"
+              >
+                <Users
+                  size={20}
+                  className="text-slate-500 group-hover:text-slate-700 transition-colors"
+                />
+                <span>Clients</span>
               </li>
-              <li className="flex items-center gap-2 text-slate-500 cursor-pointer hover:bg-slate-50 hover:text-slate-700 rounded-lg px-2 py-1.5 transition text-sm">
-                <Clock size={16} />
-                Rapports
+
+              {/* Item */}
+              <li
+                className="group flex items-center gap-3 px-2 py-3 rounded-lg cursor-pointer
+                text-sm font-medium text-slate-600
+                hover:bg-slate-100 hover:text-slate-900
+                transition-all duration-200"
+              >
+                <Clock
+                  size={20}
+                  className="text-slate-500 group-hover:text-slate-700 transition-colors"
+                />
+                <span>Rapports</span>
               </li>
             </ul>
           </div>
@@ -1107,7 +1140,9 @@ export default function Sidebar() {
         {open && (
           <div className="leading-5 text-sm overflow-hidden min-w-0">
             <p className="font-medium text-slate-800 truncate">Saheb</p>
-            <span className="text-xs text-slate-500 truncate block">saheb@gmail.com</span>
+            <span className="text-xs text-slate-500 truncate block">
+              saheb@gmail.com
+            </span>
           </div>
         )}
       </div>

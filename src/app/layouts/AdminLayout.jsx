@@ -19,7 +19,7 @@ export default function AdminLayout({ tickets, setTickets }) {
 
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden">
-      <Sidebar />
+      <Sidebar tickets={tickets} />
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header tickets={tickets} setIsModalOpen={setIsModalOpen} />
@@ -69,7 +69,10 @@ export default function AdminLayout({ tickets, setTickets }) {
                   <AttribuerTicket tickets={tickets} setTickets={setTickets} />
                 }
               />
-              <Route path="Messagerie" element={<Messagerie tickets={tickets} />} />
+              <Route
+                path="Messagerie"
+                element={<Messagerie tickets={tickets} />}
+              />
             </Routes>
           </div>
         </main>

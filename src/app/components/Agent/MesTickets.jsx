@@ -56,16 +56,20 @@ export default function MesTickets({ tickets, setTickets, setIsModalOpen }) {
         className="flex items-center justify-between mb-6"
       >
         <div>
-          <h2 className="text-2xl font-semibold text-slate-800">
-            Tickets
-          </h2>
+          <h2 className="text-2xl font-semibold text-slate-800">Tickets</h2>
           <p className="text-slate-500 text-sm mt-0.5">
             Filtrez par statut ci-dessous ou dans la barre de recherche
           </p>
         </div>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-4 py-2.5 rounded-lg shadow-sm hover:bg-slate-50 hover:border-slate-300 transition-colors"
+          className="flex items-center gap-2 px-4 py-2.5 
+          bg-blue-600 text-white 
+          rounded-lg shadow-sm 
+          hover:bg-blue-700 
+          active:scale-95 
+          focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1
+          transition-all duration-200"
         >
           <Plus className="h-4 w-4" />
           Nouveau ticket
@@ -79,7 +83,11 @@ export default function MesTickets({ tickets, setTickets, setIsModalOpen }) {
           return (
             <Link
               key={value}
-              to={value === "tous" ? "/Agent/MesTickets" : `/Agent/MesTickets?statut=${encodeURIComponent(value)}`}
+              to={
+                value === "tous"
+                  ? "/Agent/MesTickets"
+                  : `/Agent/MesTickets?statut=${encodeURIComponent(value)}`
+              }
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 isActive
                   ? "bg-slate-200 text-slate-800"

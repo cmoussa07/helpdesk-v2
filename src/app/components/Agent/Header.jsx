@@ -180,7 +180,7 @@ export default function Header({ tickets }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const unreadCount = tickets.length;
+  const notifCount = tickets.length;
   const ticketCount = tickets.length;
 
   // return (
@@ -362,11 +362,11 @@ export default function Header({ tickets }) {
   return (
     <nav className="bg-white border-b border-slate-200 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-14">
+        <div className="flex items-center justify-between h-16">
           {/* Left Section */}
-          <div className="flex items-center gap-6">
-            <h1 className="text-slate-800 text-xl font-semibold tracking-tight">
-              Centre d'Assistance
+          <div className="flex items-center justify-between gap-32">
+            <h1 className="text-blue-800 text-xl font-semibold tracking-tight">
+              Mon Helpdesk
             </h1>
 
             {/* Barre de recherche */}
@@ -378,7 +378,7 @@ export default function Header({ tickets }) {
                   placeholder="Rechercher un ticket, client ou ID..."
                   value={MotCle}
                   onChange={(e) => setMotCle(e.target.value)}
-                  className="pl-9 pr-4 py-2 w-80 rounded-lg bg-slate-50 border border-slate-200
+                  className="pl-9 pr-4 py-2 w-[600px] rounded-lg bg-slate-50 border border-slate-200
                     focus:outline-none focus:ring-2 focus:ring-slate-200 focus:border-slate-300
                     placeholder:text-slate-400 text-sm text-slate-800 transition-colors"
                 />
@@ -399,11 +399,16 @@ export default function Header({ tickets }) {
                 <Ticket className="w-5 h-5" />
                 {ticketCount > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 bg-amber-500 text-white text-[10px] font-medium rounded-full h-4 min-w-4 flex items-center justify-center px-1">
-                    {ticketCount}
+                    {ticketCount > 9 ? "9+" : ticketCount}
                   </span>
                 )}
               </button>
-              <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap transition-opacity pointer-events-none">
+              <span
+                className="absolute -bottom-7 left-1/2 -translate-x-1/2
+                opacity-0 group-hover:opacity-100 
+                bg-white border border-slate-200 text-slate-900 text-xs font-medium px-2 py-1 rounded shadow-lg
+                whitespace-nowrap transition-opacity pointer-events-none"
+              >
                 Mes Tickets
               </span>
             </div>
@@ -413,10 +418,15 @@ export default function Header({ tickets }) {
               <button className="relative p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-colors">
                 <IoMdNotificationsOutline className="w-5 h-5" />
                 <span className="absolute -top-0.5 -right-0.5 bg-amber-500 text-white text-[10px] font-medium rounded-full h-4 min-w-4 flex items-center justify-center px-1">
-                  {ticketCount}
+                  {notifCount > 9 ? "9+" : notifCount}
                 </span>
               </button>
-              <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap transition-opacity pointer-events-none">
+              <span
+                className="absolute -bottom-7 left-1/2 -translate-x-1/2
+                opacity-0 group-hover:opacity-100 
+                bg-white border border-slate-200 text-slate-900 text-xs font-medium px-2 py-1 rounded shadow-lg
+                whitespace-nowrap transition-opacity pointer-events-none"
+              >
                 Notifications
               </span>
             </div>
